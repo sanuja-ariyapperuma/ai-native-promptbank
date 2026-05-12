@@ -109,6 +109,15 @@ using (var scope = app.Services.CreateScope())
 
     // Seed users
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    // Seed roles
+    foreach (var role in new[] { "Admin", "SuperAdmin" })
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+
     var seedUsers = new[] {
         ("alice", "Alice@1234"),
         ("bob",   "Bob@1234"),
@@ -118,6 +127,29 @@ using (var scope = app.Services.CreateScope())
     {
         if (await userManager.FindByNameAsync(name) is null)
             await userManager.CreateAsync(new ApplicationUser { UserName = name, Email = $"{name}@promptbank.local" }, pass);
+    }
+
+    // Seed privileged accounts
+    var privilegedUsers = new[]
+    {
+        ("admin",      "Admin@1234",      "Admin"),
+        ("superadmin", "SuperAdmin@1234", "SuperAdmin"),
+    };
+    foreach (var (name, pass, role) in privilegedUsers)
+    {
+        var user = await userManager.FindByNameAsync(name);
+        if (user is null)
+        {
+            user = new ApplicationUser
+            {
+                UserName = name,
+                Email = $"{name}@promptbank.local",
+                MustChangePassword = false,
+            };
+            await userManager.CreateAsync(user, pass);
+        }
+        if (!await userManager.IsInRoleAsync(user, role))
+            await userManager.AddToRoleAsync(user, role);
     }
 
     // Seed prompts (only if none exist)

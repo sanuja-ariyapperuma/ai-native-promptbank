@@ -156,6 +156,9 @@ namespace PromptBank.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.DropTable(
+                name: "Prompts");
+
             migrationBuilder.CreateTable(
                 name: "Prompts",
                 columns: table => new
@@ -314,6 +317,25 @@ namespace PromptBank.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.CreateTable(
+                name: "Prompts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Content = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: false),
+                    OwnerName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    IsPinned = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RatingTotal = table.Column<int>(type: "INTEGER", nullable: false),
+                    RatingCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prompts", x => x.Id);
+                });
         }
     }
 }

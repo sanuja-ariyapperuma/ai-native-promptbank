@@ -10,6 +10,33 @@
 
 ---
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/04-home-authenticated.png" alt="Prompt list — authenticated view with pinned prompts, star ratings, and owner actions" />
+      <br /><sub><b>Prompt library</b> — pinned prompts, star ratings, copy / edit / delete</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/05-semantic-search.png" alt="Semantic search results for 'write unit tests for async methods'" />
+      <br /><sub><b>Semantic search</b> — natural-language query, no keyword matching required</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/06-create-prompt.png" alt="Add New Prompt form with title, description, and content fields" />
+      <br /><sub><b>Add prompt</b> — title, description, and prompt content with character limits</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/screenshots/02-home-dark.png" alt="Prompt library in light mode" />
+      <br /><sub><b>Light / dark theme</b> — toggle persists across sessions via localStorage</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
 ## Table of Contents
 
 - [Why This Project Exists](#why-this-project-exists)

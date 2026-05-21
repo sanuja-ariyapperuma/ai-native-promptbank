@@ -1,8 +1,8 @@
-# copilot-first-workflow 🤖
+# ai-native-promptbank
 
-> **A blueprint for AI-assisted software engineering** — a production-grade .NET web application built end-to-end with GitHub Copilot CLI, demonstrating a Copilot-first development workflow from first spec to cloud deployment.
+> **A prompt management web app built AI-native** — demonstrating end-to-end feature development driven by AI pair programming, from first spec to cloud deployment.
 
-![Built with GitHub Copilot](https://img.shields.io/badge/Built%20with-GitHub%20Copilot-6e40c9?logo=githubcopilot&logoColor=white) ![Copilot-First Workflow](https://img.shields.io/badge/Copilot--First-Workflow-6e40c9?logo=githubcopilot&logoColor=white) ![Spec-Driven](https://img.shields.io/badge/Spec--Driven-Development-333333?logo=readthedocs&logoColor=white) ![Custom Agents](https://img.shields.io/badge/Custom-AI%20Agents-e85d04?logo=probot&logoColor=white) ![Playwright MCP](https://img.shields.io/badge/Playwright-MCP%20Server-2EAD33?logo=playwright&logoColor=white)
+![Built with Claude](https://img.shields.io/badge/Built%20with-Claude%20Code-D97757?logo=anthropic&logoColor=white) ![AI-Native](https://img.shields.io/badge/AI--Native-Development-D97757?logo=anthropic&logoColor=white) ![Spec-Driven](https://img.shields.io/badge/Spec--Driven-Development-333333?logo=readthedocs&logoColor=white) ![Custom Agents](https://img.shields.io/badge/Custom-AI%20Agents-e85d04?logo=probot&logoColor=white) ![Playwright MCP](https://img.shields.io/badge/Playwright-MCP%20Server-2EAD33?logo=playwright&logoColor=white)
 
 ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet) ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-Razor%20Pages-512BD4?logo=dotnet) ![xUnit](https://img.shields.io/badge/tests-xUnit%20%2B%20Playwright-green) ![SQLite](https://img.shields.io/badge/database-SQLite-003B57?logo=sqlite&logoColor=white) ![Azure](https://img.shields.io/badge/cloud-Azure_App_Service-0078D4?logo=microsoftazure) ![CI](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=githubactions)
 
@@ -34,21 +34,21 @@
 
 This repository is not primarily about the app it contains. **It exists to answer a practical question:**
 
-> *Can a single developer, working with GitHub Copilot CLI as the primary engineering tool, build a production-quality full-stack application — complete with authentication, semantic search, a full test suite, CI/CD pipelines, and cloud infrastructure — faster, more consistently, and with higher quality than the traditional approach?*
+> *Can a single developer, working with Claude Code as the primary engineering tool, build a production-quality full-stack application — complete with authentication, semantic search, a full test suite, CI/CD pipelines, and cloud infrastructure — faster, more consistently, and with higher quality than the traditional approach?*
 
 The answer is yes — and this project is the proof.
 
-**Prompt Bank** (the application inside this repo) is the reference implementation. It is a real, deployed web application with real features and real users. But the primary artefact of this project is the **Copilot-first development framework** that was used to build it: a structured methodology combining persistent AI context, custom specialist agents, reusable skill playbooks, and spec-driven delivery.
+**Prompt Bank** (the application inside this repo) is the reference implementation. It is a real, deployed web application with real features and real users. But the primary artefact of this project is the **AI-native development framework** that was used to build it: a structured methodology combining persistent AI context, custom specialist agents, reusable skill playbooks, and spec-driven delivery.
 
-### What "Copilot-first" means
+### What "AI-native" means
 
-A Copilot-first workflow treats GitHub Copilot CLI not as an autocomplete shortcut, but as the **primary engineering collaborator** — responsible for architecture review, writing code, generating tests, reviewing for security, and driving the CI/CD pipeline. The human engineer sets direction, reviews outcomes, and makes final decisions. Copilot executes.
+An AI-native workflow treats Claude Code not as an autocomplete shortcut, but as the **primary engineering collaborator** — responsible for architecture review, writing code, generating tests, reviewing for security, and driving the CI/CD pipeline. The human engineer sets direction, reviews outcomes, and makes final decisions. The AI executes.
 
 This methodology was explored across the full software development lifecycle:
 
-| Phase | Traditional approach | Copilot-first approach |
+| Phase | Traditional approach | AI-native approach |
 |---|---|---|
-| Feature planning | Ticket → code | Spec file (markdown) → Copilot reads and implements |
+| Feature planning | Ticket → code | Spec file (markdown) → Claude reads and implements |
 | Architecture review | Peer review / ADR | `dotnet-security-architect` custom agent |
 | Implementation | Developer writes code | `implement-feature` skill executes 7-step workflow |
 | Unit testing | Developer writes tests | `test-coverage-engineer` agent writes and runs tests |
@@ -61,9 +61,9 @@ Every feature in Prompt Bank was delivered using this framework — authenticati
 
 ---
 
-## The Copilot-First Development Framework
+## The AI-Native Development Framework
 
-This section documents the framework components that make the Copilot-first workflow possible. Each component is a file in `.github/` and works automatically when you open this repository in the GitHub Copilot CLI.
+This section documents the framework components that make the AI-native workflow possible. Each component is a file in `.github/` and `.claude/` and works automatically when you open this repository in Claude Code.
 
 ### Copilot Instructions (`.github/copilot-instructions.md`)
 
@@ -94,6 +94,8 @@ The key insight: the same specialist "mindset" is available consistently across 
 
 **Example:**
 > "Write unit tests for the new `SearchAsync` method" → `test-coverage-engineer` analyses the code, identifies all execution paths (threshold filtering, pin-first ordering, empty results), and writes xUnit tests with in-memory SQLite.
+
+These agents are defined as Claude Code custom agents in `.claude/agents/`.
 
 ### Skills (`.github/skills/`)
 
@@ -168,7 +170,7 @@ Playwright is configured as an MCP (Model Context Protocol) server, giving Copil
 
 ### What This Framework Proves
 
-> **The Copilot-first workflow is not about moving faster on individual tasks. It is about compressing the gap between intent and production-ready delivery across the entire SDLC.**
+> **The AI-native workflow is not about moving faster on individual tasks. It is about compressing the gap between intent and production-ready delivery across the entire SDLC.**
 
 By the end of this project, the framework had produced:
 - ✅ A fully authenticated multi-user web application
@@ -179,7 +181,7 @@ By the end of this project, the framework had produced:
 - ✅ Modular Azure Bicep infrastructure for two environments
 - ✅ 10 completed spec files documenting every architectural decision
 
-All of this was built by a single developer working with the GitHub Copilot CLI. The framework is what made that possible.
+All of this was built by a single developer working with Claude Code as the AI pair programming partner. The framework is what made that possible.
 
 ---
 
@@ -349,8 +351,8 @@ ApplicationUser (IdentityUser)
 ### Clone and run
 
 ```bash
-git clone https://github.com/sanuja-ariyapperuma/copilot-first-workflow.git
-cd copilot-first-workflow
+git clone https://github.com/sanuja-ariyapperuma/ai-native-promptbank.git
+cd ai-native-promptbank
 
 dotnet build
 dotnet run --project PromptBank
@@ -708,10 +710,10 @@ prompt bank/
 
 ## Contributing
 
-This repository is a living blueprint. Contributions that improve the Copilot-first framework — new agents, improved skills, better spec templates — are as valuable as feature contributions to the application itself.
+This repository is a living blueprint. Contributions that improve the AI-native framework — new agents, improved skills, better spec templates — are as valuable as feature contributions to the application itself.
 
 1. Fork the repository and create a feature branch
-2. Read `.github/copilot-instructions.md` — it defines all conventions
+2. Read `CLAUDE.md` — it defines all conventions
 3. Follow the spec-driven workflow: create a spec in `.github/specs/` before writing code
 4. Use the `implement-feature` skill for end-to-end implementation
 5. Ensure all tests pass: `dotnet test`
@@ -727,4 +729,4 @@ This repository is a living blueprint. Contributions that improve the Copilot-fi
 
 ---
 
-*copilot-first-workflow — a blueprint for AI-assisted engineering, built with GitHub Copilot CLI 🤖*
+*ai-native-promptbank — a blueprint for AI-native engineering, built with Claude Code*

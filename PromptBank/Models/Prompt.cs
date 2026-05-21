@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace PromptBank.Models;
 
 /// <summary>
-/// Represents a single Copilot prompt stored in the Prompt Bank.
+/// Represents a single prompt stored in the Prompt Bank.
 /// </summary>
 public class Prompt
 {

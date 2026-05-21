@@ -1,15 +1,25 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using PromptBank.Data;
+using PromptBank.Filters;
 using PromptBank.Models;
 using PromptBank.Services;
 using SmartComponents.LocalEmbeddings;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// MustChangePassword filter — scoped so UserManager is resolved per-request
+builder.Services.AddScoped<MustChangePasswordFilter>();
+
 // Razor Pages (antiforgery enabled by default)
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AddFolderApplicationModelConvention(
+        "/",
+        model => model.Filters.Add(new TypeFilterAttribute(typeof(MustChangePasswordFilter))));
+});
 
 // EF Core with SQLite — ensure the data directory exists (required on App Service /home mount)
 builder.Services.AddDbContext<AppDbContext>(options =>

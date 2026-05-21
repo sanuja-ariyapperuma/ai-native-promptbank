@@ -102,6 +102,16 @@ public abstract class E2ETestBase : IAsyncLifetime
     /// </summary>
     protected string TestUserId => Factory.AliceId;
 
+    /// <summary>
+    /// Creates a new application user with <c>MustChangePassword = true</c> in the isolated
+    /// test database and returns the new user's ID.
+    /// </summary>
+    /// <param name="username">Username for the new account.</param>
+    /// <param name="password">Initial password (must pass Identity password policy).</param>
+    /// <returns>The new user's <c>Id</c>.</returns>
+    protected Task<string> CreateMustChangePasswordUserAsync(string username, string password)
+        => Factory.CreateMustChangePasswordUserAsync(username, password);
+
     // ── Seeding helper ────────────────────────────────────────────────────────
 
     /// <summary>
@@ -137,5 +147,21 @@ public abstract class E2ETestBase : IAsyncLifetime
         await Page.FillAsync("#Input_Password", password);
         await Page.ClickAsync("button[type='submit']");
         await Page.WaitForURLAsync(new System.Text.RegularExpressions.Regex("/$"));
+    }
+
+    /// <summary>
+    /// Submits the login form but does NOT wait for the home page URL — useful when
+    /// the user will be intercepted by a redirect (e.g. <c>MustChangePassword = true</c>).
+    /// </summary>
+    /// <param name="username">The username of the account to log in as.</param>
+    /// <param name="password">The account password.</param>
+    /// <returns>A task that completes once the login form has been submitted and the browser has navigated.</returns>
+    protected async Task LoginAsyncRaw(string username, string password)
+    {
+        await Page.GotoAsync($"{BaseUrl}/Account/Login");
+        await Page.FillAsync("#Input_Username", username);
+        await Page.FillAsync("#Input_Password", password);
+        await Page.ClickAsync("button[type='submit']");
+        await Page.WaitForLoadStateAsync();
     }
 }

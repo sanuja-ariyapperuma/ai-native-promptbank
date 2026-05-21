@@ -196,7 +196,19 @@ public sealed class AuthenticationTests : E2ETestBase
         await LoginAsync("bob", "Bob@1234");
 
         // Act – capture the response when navigating directly to alice's edit URL.
-        var response = await Page.GotoAsync($"{BaseUrl}/Prompts/Edit?id=1");
+        // Playwright throws PlaywrightException when the browser receives a 4xx/5xx response,
+        // so we catch it; if it contains the 403 signal the server correctly denied access.
+        Microsoft.Playwright.IResponse? response = null;
+        try
+        {
+            response = await Page.GotoAsync($"{BaseUrl}/Prompts/Edit?id=1");
+        }
+        catch (Microsoft.Playwright.PlaywrightException ex)
+            when (ex.Message.Contains("ERR_HTTP_RESPONSE_CODE_FAILURE"))
+        {
+            // The browser received a 403 — access was correctly denied.
+            return;
+        }
 
         // Assert – the server must return 403, OR the URL must not be the edit form,
         //          OR the page must show Forbidden/error content.

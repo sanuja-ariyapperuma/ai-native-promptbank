@@ -240,6 +240,39 @@ public sealed class PromptBankWebFactory : WebApplicationFactory<Program>
         await db.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Creates a new test user with <see cref="ApplicationUser.MustChangePassword"/> set to
+    /// <c>true</c> and the supplied <paramref name="password"/>, then returns the user's ID.
+    /// </summary>
+    /// <param name="username">The username for the new account.</param>
+    /// <param name="password">The initial password (must satisfy the configured Identity password policy).</param>
+    /// <returns>The <c>Id</c> of the newly created <see cref="ApplicationUser"/>.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the Kestrel host has not been started.</exception>
+    public async Task<string> CreateMustChangePasswordUserAsync(string username, string password)
+    {
+        _ = Server;
+
+        if (_kestrelHost is null)
+            throw new InvalidOperationException("Kestrel host is not running.");
+
+        await using var scope = _kestrelHost.Services.CreateAsyncScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+        var user = new ApplicationUser
+        {
+            UserName = username,
+            Email = $"{username}@promptbank.local",
+            MustChangePassword = true
+        };
+
+        var result = await userManager.CreateAsync(user, password);
+        if (!result.Succeeded)
+            throw new InvalidOperationException(
+                $"Failed to create user '{username}': {string.Join(", ", result.Errors.Select(e => e.Description))}");
+
+        return user.Id;
+    }
+
     // ── Cleanup ───────────────────────────────────────────────────────────────
 
     /// <summary>

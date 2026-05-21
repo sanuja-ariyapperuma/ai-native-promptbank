@@ -1,4 +1,4 @@
-# Copilot Instructions
+# Claude Code Instructions
 
 ## Tech Stack
 
@@ -51,7 +51,7 @@ dotnet test PromptBank.UnitTests --filter "FullyQualifiedName~<TestName>"
 
 ---
 
-Playwright is configured as an MCP server in `.github/copilot/mcp.json`. Test files live in `PromptBank.Tests/` (xUnit + `Microsoft.Playwright`).
+Playwright is configured as an MCP server in `.claude/settings.json`. Test files live in `PromptBank.Tests/` (xUnit + `Microsoft.Playwright`).
 
 ```bash
 # Install Playwright browsers (first time)
